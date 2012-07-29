@@ -5,6 +5,8 @@ package Sub::Exporter::Progressive;
 use strict;
 use warnings;
 
+# VERSION
+
 use List::Util 'first';
 
 sub import {
