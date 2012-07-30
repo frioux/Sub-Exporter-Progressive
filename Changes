@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.001001  2012-07-29 19:58:40 America/Chicago
   - Fix '-all' option for the default group
 
 0.001000  2012-07-29 16:44:01 America/Chicago
