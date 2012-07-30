@@ -76,12 +76,12 @@ sub sub_export_options {
                if first { $_ ne 'default' } keys %{$options{groups}};
 
             @defaults = @{$options{groups}{default} || [] };
-            @defaults = @exports if $defaults[0] eq '-all';
          } else {
             $TOO_COMPLICATED = 1;
             last OPTIONS
          }
       }
+      @defaults = @exports if $defaults[0] eq '-all';
    }
 
    return $TOO_COMPLICATED, {
