@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.001002  2012-07-31 08:59:43 America/Chicago
   - Make Sub::Exporter an optional dep (which is kinda the whole point)
   - warning about too complex usage of Sub::Exporter::Progressive is now
     an exception
