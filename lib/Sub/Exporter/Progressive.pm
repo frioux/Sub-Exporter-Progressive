@@ -34,7 +34,8 @@ WARNING
          my ($self, @args) = @_;
 
          if (first { ref || !m/^\w+$/ } @args) {
-            require Sub::Exporter;
+            die 'your usage of Sub::Exporter::Progressive requires Sub::Exporter to be installed'
+               unless eval { require Sub::Exporter };
             $full_exporter ||=
                Sub::Exporter::build_exporter($export_data->{original});
 

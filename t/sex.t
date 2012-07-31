@@ -3,6 +3,9 @@ use strict;
 use warnings;
 
 use Test::More;
+plan skip_all => 'Sub::Exporter not installed'
+   unless eval { require Sub::Exporter };
+
 use List::Util 'first';
 use lib 't/lib';
 use A::Junk 'junk1' => { -as => 'junk' };
