@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
   - Make Sub::Exporter an optional dep (which is kinda the whole point)
+  - warning about too complex usage of Sub::Exporter::Progressive is now
+    an exception
 
 0.001001  2012-07-29 19:58:40 America/Chicago
   - Fix '-all' option for the default group

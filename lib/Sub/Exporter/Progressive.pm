@@ -15,37 +15,32 @@ sub import {
    my $inner_target = caller(0);
    my ($TOO_COMPLICATED, $export_data) = sub_export_options(@args);
 
-   if ($TOO_COMPLICATED) {
-      warn <<'WARNING';
+   die <<'DEATH' if $TOO_COMPLICATED;
 You are using Sub::Exporter::Progressive, but the features your program uses from
 Sub::Exporter cannot be implemented without Sub::Exporter, so you might as well
 just use vanilla Sub::Exporter
-WARNING
-      require Sub::Exporter;
-      goto \&Sub::Exporter::import;
-   }
-   else {
-      my $full_exporter;
-      no strict;
-      @{"${inner_target}::EXPORT_OK"} = @{$export_data->{exports}};
-      @{"${inner_target}::EXPORT"} = @{$export_data->{defaults}};
-      *{"${inner_target}::import"} = sub {
-         use strict;
-         my ($self, @args) = @_;
+DEATH
 
-         if (first { ref || !m/^\w+$/ } @args) {
-            die 'your usage of Sub::Exporter::Progressive requires Sub::Exporter to be installed'
-               unless eval { require Sub::Exporter };
-            $full_exporter ||=
-               Sub::Exporter::build_exporter($export_data->{original});
+   my $full_exporter;
+   no strict;
+   @{"${inner_target}::EXPORT_OK"} = @{$export_data->{exports}};
+   @{"${inner_target}::EXPORT"} = @{$export_data->{defaults}};
+   *{"${inner_target}::import"} = sub {
+      use strict;
+      my ($self, @args) = @_;
 
-            goto $full_exporter;
-         } else {
-            require Exporter;
-            goto \&Exporter::import;
-         }
-      };
-   }
+      if (first { ref || !m/^\w+$/ } @args) {
+         die 'your usage of Sub::Exporter::Progressive requires Sub::Exporter to be installed'
+            unless eval { require Sub::Exporter };
+         $full_exporter ||=
+            Sub::Exporter::build_exporter($export_data->{original});
+
+         goto $full_exporter;
+      } else {
+         require Exporter;
+         goto \&Exporter::import;
+      }
+   };
 }
 
 sub sub_export_options {
