@@ -77,7 +77,7 @@ sub sub_export_options {
             last OPTIONS
          }
       }
-      @defaults = @exports if $defaults[0] eq '-all';
+      @defaults = @exports if @defaults && $defaults[0] eq '-all';
    }
 
    return $TOO_COMPLICATED, {
