@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.001003  2012-08-01 12:47:28 America/Chicago
   - remove warning if there are no defaults
 
 0.001002  2012-07-31 08:59:43 America/Chicago
