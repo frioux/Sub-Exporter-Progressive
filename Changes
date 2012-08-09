@@ -1,5 +1,3 @@
-Revision history for {{$dist->name}}
-
 {{$NEXT}}
   - fix skipping when Sub::Exporter isn't installed
 
