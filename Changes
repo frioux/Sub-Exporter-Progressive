@@ -1,4 +1,4 @@
-{{$NEXT}}
+0.001004 - 2012-08-09
   - fix skipping when Sub::Exporter isn't installed
 
 0.001003  2012-08-01 12:47:28 America/Chicago
