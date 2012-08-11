@@ -23,11 +23,12 @@ DEATH
    no strict;
    @{"${inner_target}::EXPORT_OK"} = @{$export_data->{exports}};
    @{"${inner_target}::EXPORT"} = @{$export_data->{defaults}};
+   %{"${inner_target}::EXPORT_TAGS"} = %{$export_data->{tags}};
    *{"${inner_target}::import"} = sub {
       use strict;
       my ($self, @args) = @_;
 
-      if (first { ref || !m/^\w+$/ } @args) {
+      if (first { ref || !m/^:?\w+$/ } @args) {
          die 'your usage of Sub::Exporter::Progressive requires Sub::Exporter to be installed'
             unless eval { require Sub::Exporter };
          $full_exporter ||=
@@ -48,6 +49,7 @@ sub sub_export_options {
 
    my @exports;
    my @defaults;
+   my %tags;
 
    if ($setup eq '-setup') {
       my %options = %$options;
@@ -65,17 +67,17 @@ sub sub_export_options {
                if first { ref } @exports;
 
          } elsif ($opt eq 'groups') {
-
-            $TOO_COMPLICATED = 1, last OPTIONS
-               if first { $_ ne 'default' } keys %{$options{groups}};
-
-            @defaults = @{$options{groups}{default} || [] };
+            %tags = %{$options{groups}};
+            for my $tagset (values %tags) {
+               $TOO_COMPLICATED = 1 if first { /^-(?!all\b)/ || ref } @{$tagset};
+            }
+            @defaults = @{$tags{default} || [] };
          } else {
             $TOO_COMPLICATED = 1;
             last OPTIONS
          }
       }
-      @defaults = @exports if @defaults && $defaults[0] eq '-all';
+      @{$_} = map { $_ eq '-all' ? @exports : $_ } @{$_} for \@defaults, values %tags;
       my @errors = grep { my $default = $_; !grep { $default eq $_ } @exports } @defaults;
       die join(', ', @errors) . " is not exported by the $inner_target module\n" if @errors;
    }
@@ -84,6 +86,7 @@ sub sub_export_options {
       exports => \@exports,
       defaults => \@defaults,
       original => $options,
+      tags => \%tags,
    }
 }
 
@@ -125,10 +128,10 @@ if all they are doing is picking exports, but use C<Sub::Exporter> if your
 users try to use C<Sub::Exporter>'s more advanced features features, like
 renaming exports, if they try to use them.
 
-Note that this module will export C<@EXPORT> and C<@EXPORT_OK> package
-variables for C<Exporter> to work.  Additionally, if your package uses advanced
-C<Sub::Exporter> features like currying, this module will only ever use
-C<Sub::Exporter>, so you might as well use it directly.
+Note that this module will export C<@EXPORT>, C<@EXPORT_OK> and
+C<%EXPORT_TAGS> package variables for C<Exporter> to work.  Additionally, if
+your package uses advanced C<Sub::Exporter> features like currying, this module
+will only ever use C<Sub::Exporter>, so you might as well use it directly.
 
 =head1 AUTHOR
 
