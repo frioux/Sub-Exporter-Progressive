@@ -1,7 +1,7 @@
 package A::Junk;
 
 use Sub::Exporter::Progressive -setup => {
-  exports => [qw(junk1)],
+  exports => [qw(junk1 junk2)],
   groups => {
      default => ['junk2'],
   },

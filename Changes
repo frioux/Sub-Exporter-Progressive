@@ -1,3 +1,5 @@
+  - Warn if defaults are not in exports
+
 0.001004 - 2012-08-09
   - fix skipping when Sub::Exporter isn't installed
 

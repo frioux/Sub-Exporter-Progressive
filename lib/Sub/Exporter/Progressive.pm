@@ -11,7 +11,7 @@ sub import {
    my ($self, @args) = @_;
 
    my $inner_target = caller(0);
-   my ($TOO_COMPLICATED, $export_data) = sub_export_options(@args);
+   my ($TOO_COMPLICATED, $export_data) = sub_export_options($inner_target, @args);
 
    die <<'DEATH' if $TOO_COMPLICATED;
 You are using Sub::Exporter::Progressive, but the features your program uses from
@@ -42,7 +42,7 @@ DEATH
 }
 
 sub sub_export_options {
-   my ($setup, $options) = @_;
+   my ($inner_target, $setup, $options) = @_;
 
    my $TOO_COMPLICATED = 0;
 
@@ -76,6 +76,8 @@ sub sub_export_options {
          }
       }
       @defaults = @exports if @defaults && $defaults[0] eq '-all';
+      my @errors = grep { my $default = $_; !grep { $default eq $_ } @exports } @defaults;
+      die join(', ', @errors) . " is not exported by the $inner_target module\n" if @errors;
    }
 
    return $TOO_COMPLICATED, {
