@@ -1,5 +1,6 @@
   - Add support for tags
   - Warn if defaults are not in exports
+  - Add explicit dependency on Test::More 0.89
 
 0.001004 - 2012-08-09
   - fix skipping when Sub::Exporter isn't installed

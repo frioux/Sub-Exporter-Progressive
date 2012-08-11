@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test::More 0.89;
 use List::Util 'first';
 use lib 't/lib';
 use A::Junk 'junk1';

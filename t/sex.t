@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test::More 0.89;
 BEGIN {
     plan skip_all => 'Sub::Exporter not installed'
         unless eval { require Sub::Exporter };
