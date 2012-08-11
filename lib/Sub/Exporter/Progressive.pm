@@ -87,6 +87,8 @@ sub sub_export_options {
 
 1;
 
+=encoding utf8
+
 =head1 NAME
 
 Sub::Exporter::Progressive - Only use Sub::Exporter if you need it
