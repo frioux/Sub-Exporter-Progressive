@@ -1,3 +1,4 @@
+0.001005 - 2012-08-25
   - Add support for tags
   - Warn if defaults are not in exports
   - Add explicit dependency on Test::More 0.89
