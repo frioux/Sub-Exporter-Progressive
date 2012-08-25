@@ -143,6 +143,8 @@ ilmari - Dagfinn Ilmari Mannsåker (cpan:ILMARI) <ilmari@ilmari.org>
 
 mst - Matt S. Trout (cpan:MSTROUT) <mst@shadowcat.co.uk>
 
+leont - Leon Timmermans (cpan:LEONT) <leont@cpan.org>
+
 =head1 COPYRIGHT
 
 Copyright (c) 2012 the Sub::Exporter::Progressive L</AUTHOR> and
