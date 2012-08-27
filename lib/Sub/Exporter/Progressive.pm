@@ -77,7 +77,8 @@ sub sub_export_options {
             last OPTIONS
          }
       }
-      @{$_} = map { $_ eq '-all' ? @exports : $_ } @{$_} for \@defaults, values %tags;
+      @{$_} = map { / \A  [:-] all \z /x ? @exports : $_ } @{$_} for \@defaults, values %tags;
+      $tags{all} ||= [ @exports ];
       my @errors = grep { my $default = $_; !grep { $default eq $_ } @exports } @defaults;
       die join(', ', @errors) . " is not exported by the $inner_target module\n" if @errors;
    }

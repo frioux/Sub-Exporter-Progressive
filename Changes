@@ -1,3 +1,5 @@
+  - Handle ':all' correctly
+
 0.001005 - 2012-08-25
   - Add support for tags
   - Warn if defaults are not in exports
