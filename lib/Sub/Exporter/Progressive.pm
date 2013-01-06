@@ -3,7 +3,7 @@ package Sub::Exporter::Progressive;
 use strict;
 use warnings;
 
-our $VERSION = '0.001006';
+our $VERSION = '0.001007';
 
 use List::Util 'first';
 
