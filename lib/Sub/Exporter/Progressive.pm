@@ -11,11 +11,11 @@ use List::Util 'first';
 sub import {
    my ($self, @args) = @_;
 
-   my $inner_target = caller(0);
+   my $inner_target = caller;
    my $export_data = sub_export_options($inner_target, @args);
 
    my $full_exporter;
-   no strict;
+   no strict 'refs';
    @{"${inner_target}::EXPORT_OK"} = @{$export_data->{exports}};
    @{"${inner_target}::EXPORT"} = @{$export_data->{defaults}};
    %{"${inner_target}::EXPORT_TAGS"} = %{$export_data->{tags}};
@@ -26,8 +26,7 @@ sub import {
       if (first { ref || !m/ \A [:-]? \w+ \z /xm } @args) {
          croak 'your usage of Sub::Exporter::Progressive requires Sub::Exporter to be installed'
             unless eval { require Sub::Exporter };
-         $full_exporter ||=
-            Sub::Exporter::build_exporter($export_data->{original});
+         $full_exporter ||= Sub::Exporter::build_exporter($export_data->{original});
 
          goto $full_exporter;
       } else {
@@ -37,6 +36,7 @@ sub import {
          goto \&Exporter::import;
       }
    };
+   return;
 }
 
 my $too_complicated = <<'DEATH';
@@ -66,7 +66,7 @@ sub sub_export_options {
          } elsif ($opt eq 'groups') {
             %tags = %{$options{groups}};
             for my $tagset (values %tags) {
-               croak $too_complicated if first { /^-(?!all\b)/ || ref } @{$tagset};
+               croak $too_complicated if first { / \A - (?! all \b ) /x || ref } @{$tagset};
             }
             @defaults = @{$tags{default} || [] };
          } else {
@@ -75,8 +75,9 @@ sub sub_export_options {
       }
       @{$_} = map { / \A  [:-] all \z /x ? @exports : $_ } @{$_} for \@defaults, values %tags;
       $tags{all} ||= [ @exports ];
-      my @errors = grep { my $default = $_; !grep { $default eq $_ } @exports } @defaults;
-      die join(', ', @errors) . " is not exported by the $inner_target module\n" if @errors;
+      my %exports = map { $_ => 1 } @exports;
+      my @errors = grep { not $exports{$_} } @defaults;
+      croak join(', ', @errors) . " is not exported by the $inner_target module\n" if @errors;
    }
 
    return {
