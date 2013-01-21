@@ -1,3 +1,5 @@
+  - Fix prereqs
+
 0.001007 - 2013-01-21
   - Rewrite -tag to :tag for Exporter.pm
 
