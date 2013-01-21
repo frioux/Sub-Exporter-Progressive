@@ -23,8 +23,8 @@ sub import {
       use strict;
       my ($self, @args) = @_;
 
-      if (first { ref || !m/^:?\w+$/ } @args) {
-         die 'your usage of Sub::Exporter::Progressive requires Sub::Exporter to be installed'
+      if (first { ref || !m/ \A [:-]? \w+ \z /xm } @args) {
+         croak 'your usage of Sub::Exporter::Progressive requires Sub::Exporter to be installed'
             unless eval { require Sub::Exporter };
          $full_exporter ||=
             Sub::Exporter::build_exporter($export_data->{original});
@@ -32,6 +32,8 @@ sub import {
          goto $full_exporter;
       } else {
          require Exporter;
+         s/ \A - /:/xm for @args;
+         @_ = ($self, @args);
          goto \&Exporter::import;
       }
    };
