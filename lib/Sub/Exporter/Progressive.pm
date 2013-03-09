@@ -29,6 +29,8 @@ sub import {
          $full_exporter ||= Sub::Exporter::build_exporter($export_data->{original});
 
          goto $full_exporter;
+      } elsif (defined(my $num = first { !ref and m/^\d/ } @args)) {
+         die "cannot export symbols with a leading digit: '$num'";
       } else {
          require Exporter;
          s/ \A - /:/xm for @args;
