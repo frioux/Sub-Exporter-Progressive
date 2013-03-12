@@ -25,11 +25,10 @@ BEGIN {
          bb      => [qw/ bar baz /],
       },
    };
-   use constant {
-      foo => 1,
-      bar => 2,
-      baz => 3,
-   };
+   use constant foo => 1;
+   use constant bar => 2;
+   use constant baz => 3;
+
    $INC{'Local/Exporter.pm'} = __FILE__;
 };
 
