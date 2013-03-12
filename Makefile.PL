@@ -10,7 +10,7 @@ my %deps = (
    },
 );
 my $key = eval { ExtUtils::MakeMaker->VERSION(6.56) } ? 'BUILD_REQUIRES' : 'PREREQ_PM' ;
-$deps{$key}{'Test::More'} = '0.96';
+$deps{$key}{'Test::More'} = '0.88';
 
 WriteMakefile(
   NAME => 'Sub-Exporter-Progressive',

@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More 0.96;
+use Test::More;
 use List::Util 'first';
 use Carp;
 use lib 't/lib';
@@ -34,24 +34,18 @@ BEGIN {
 };
 
 my $i = 0;
-sub check_tag
-{
+sub check_tag {
    my ($tag, $should, $shouldnt) = @_;
    my $pkg = 'Local::Importer' . ++$i;
-   subtest "test the '$tag' tag" => sub
-   {
-      plan tests => 1 + @$should + @$shouldnt;
-      local $@ = undef;
-      
-      ok(eval qq{
-         package $pkg;
-         use Local::Exporter qw( $tag );
-         1;
-      }, "$pkg compiled") or diag $@;
-      
-      ok( $pkg->can($_), "$pkg\->can(\"$_\")") for @$should;
-      ok(!$pkg->can($_), "$pkg\->can't(\"$_\")") for @$shouldnt;
-   }
+
+   ok(eval qq{
+      package $pkg;
+      use Local::Exporter qw( $tag );
+      1;
+   }, "'$tag' tag: $pkg compiled") or diag $@;
+
+   ok( $pkg->can($_), "'$tag' tag: $pkg\->can(\"$_\")") for @$should;
+   ok(!$pkg->can($_), "'$tag' tag: $pkg\->can't(\"$_\")") for @$shouldnt;
 }
 
 check_tag(':default', [qw/foo/], [qw/bar baz/]);
