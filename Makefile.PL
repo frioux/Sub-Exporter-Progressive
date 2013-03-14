@@ -27,7 +27,7 @@ my $mymeta_works = eval { ExtUtils::MakeMaker->VERSION('6.5707'); 1 };
 my $mymeta = $mymeta_works || eval { ExtUtils::MakeMaker->VERSION('6.5702'); 1 };
 
 my %WriteMakefileArgs = (
-  NAME          => 'Sub-Exporter-Progressive',
+  NAME          => 'Sub::Exporter::Progressive',
   VERSION_FROM  => 'lib/Sub/Exporter/Progressive.pm',
   ABSTRACT_FROM => 'lib/Sub/Exporter/Progressive.pm',
   LICENSE       => 'perl',
