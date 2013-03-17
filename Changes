@@ -1,4 +1,6 @@
 0.001009 - 2013-03-12
+  - disallow version names in random parts of the import list for consistency
+    with Sub::Exporter (Toby Inkster)
   - perl 5.6 support
   - more metadata
 
