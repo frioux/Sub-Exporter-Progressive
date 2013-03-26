@@ -1,4 +1,5 @@
   - Fix module name in Makefile.PL (RT#83932)
+  - Work around Exporter.pm not installable on perl < 5.8.0
 
 0.001009 - 2013-03-12
   - disallow version names in random parts of the import list for consistency

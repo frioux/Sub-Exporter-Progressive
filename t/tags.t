@@ -51,12 +51,19 @@ check_tag(':default', [qw/foo/], [qw/bar baz/]);
 check_tag('-default', [qw/foo/], [qw/bar baz/]);
 check_tag(':default bar', [qw/foo bar/], [qw/baz/]);
 check_tag('-default bar', [qw/foo bar/], [qw/baz/]);
-check_tag('bar :default', [qw/foo bar/], [qw/baz/]);
-check_tag('bar -default', [qw/foo bar/], [qw/baz/]);
 check_tag(':bb', [qw/bar baz/], [qw/foo/]);
 check_tag('-bb', [qw/bar baz/], [qw/foo/]);
 check_tag(':all', [qw/foo bar baz/], []);
 check_tag('-all', [qw/foo bar baz/], []);
+
+SKIP: {
+  skip "Your version of Exporter (@{[ Exporter->VERSION ]}) supports "
+      .'tags only as the first argument to import()', 1
+    unless eval { Exporter->VERSION('5.58') };
+
+  check_tag('bar :default', [qw/foo bar/], [qw/baz/]);
+  check_tag('bar -default', [qw/foo bar/], [qw/baz/]);
+}
 
 done_testing;
 

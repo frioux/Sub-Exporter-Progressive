@@ -10,7 +10,6 @@ my %BUILD_DEPS = (
 );
 
 my %RUN_DEPS = (
-  'Exporter' => '5.58',
 );
 
 my %META_BITS = (
