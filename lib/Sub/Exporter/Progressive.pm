@@ -105,7 +105,7 @@ Sub::Exporter::Progressive - Only use Sub::Exporter if you need it
  use Sub::Exporter::Progressive -setup => {
    exports => [qw( break gather gathered take )],
    groups => {
-     defaults => [qw( break gather gathered take )],
+     default => [qw( break gather gathered take )],
    },
  };
 
