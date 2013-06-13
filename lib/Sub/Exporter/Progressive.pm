@@ -125,7 +125,7 @@ L<Sub::Exporter> is an incredibly powerful module, but with that power comes
 great responsibility, er- as well as some runtime penalties.  This module
 is a C<Sub::Exporter> wrapper that will let your users just use L<Exporter>
 if all they are doing is picking exports, but use C<Sub::Exporter> if your
-users try to use C<Sub::Exporter>'s more advanced features features, like
+users try to use C<Sub::Exporter>'s more advanced features, like
 renaming exports, if they try to use them.
 
 Note that this module will export C<@EXPORT>, C<@EXPORT_OK> and

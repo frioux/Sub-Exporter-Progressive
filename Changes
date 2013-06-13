@@ -1,4 +1,5 @@
   - Fix SYNOPSIS
+  - Fix duplicate word in DESCRIPTION (RT#86072)
 
 0.001010 - 2013-03-26
   - Fix module name in Makefile.PL (RT#83932)
