@@ -1,3 +1,4 @@
+0.001011 - 2013-10-28
   - Fix in global destruction (Graham Knop)
   - Fix SYNOPSIS
   - Fix duplicate word in DESCRIPTION (RT#86072)
