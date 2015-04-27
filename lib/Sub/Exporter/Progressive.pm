@@ -6,7 +6,6 @@ use warnings;
 # ABSTRACT: Only use Sub::Exporter if you need it
 
 use Carp ();
-use List::Util ();
 
 sub import {
    my ($self, @args) = @_;
@@ -23,7 +22,7 @@ sub import {
       use strict;
       my ($self, @args) = @_;
 
-      if ( List::Util::first {
+      if ( grep {
          length ref $_
             or
          $_ !~ / \A [:-]? \w+ \z /xm
@@ -33,7 +32,7 @@ sub import {
          $full_exporter ||= Sub::Exporter::build_exporter($export_data->{original});
 
          goto $full_exporter;
-      } elsif (defined(my $num = List::Util::first { m/^\d/ } @args)) {
+      } elsif ( defined( (my ($num) = grep { m/^\d/ } @args)[0] ) ) {
          die "cannot export symbols with a leading digit: '$num'";
       } else {
          require Exporter;
@@ -67,12 +66,12 @@ sub sub_export_options {
 
             Carp::croak $too_complicated if ref $options{exports} ne 'ARRAY';
             @exports = @{$options{exports}};
-            Carp::croak $too_complicated if List::Util::first { length ref $_ } @exports;
+            Carp::croak $too_complicated if grep { length ref $_ } @exports;
 
          } elsif ($opt eq 'groups') {
             %tags = %{$options{groups}};
             for my $tagset (values %tags) {
-               Carp::croak $too_complicated if List::Util::first {
+               Carp::croak $too_complicated if grep {
                   length ref $_
                      or
                   $_ =~ / \A - (?! all \b ) /x
