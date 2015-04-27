@@ -29,7 +29,7 @@ sub import {
          $full_exporter ||= Sub::Exporter::build_exporter($export_data->{original});
 
          goto $full_exporter;
-      } elsif (defined(my $num = List::Util::first { !ref and m/^\d/ } @args)) {
+      } elsif (defined(my $num = List::Util::first { m/^\d/ } @args)) {
          die "cannot export symbols with a leading digit: '$num'";
       } else {
          require Exporter;
