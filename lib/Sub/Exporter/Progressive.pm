@@ -5,7 +5,10 @@ use warnings;
 
 # ABSTRACT: Only use Sub::Exporter if you need it
 
-use Carp ();
+sub _croak {
+  require Carp;
+  &Carp::croak;
+}
 
 sub import {
    my ($self, @args) = @_;
@@ -27,13 +30,13 @@ sub import {
             or
          $_ !~ / \A [:-]? \w+ \z /xm
       } @args ) {
-         Carp::croak 'your usage of Sub::Exporter::Progressive requires Sub::Exporter to be installed'
+         _croak 'your usage of Sub::Exporter::Progressive requires Sub::Exporter to be installed'
             unless eval { require Sub::Exporter };
          $full_exporter ||= Sub::Exporter::build_exporter($export_data->{original});
 
          goto $full_exporter;
       } elsif ( defined( (my ($num) = grep { m/^\d/ } @args)[0] ) ) {
-         die "cannot export symbols with a leading digit: '$num'";
+         _croak "cannot export symbols with a leading digit: '$num'";
       } else {
          require Exporter;
          s/ \A - /:/xm for @args;
@@ -64,14 +67,14 @@ sub sub_export_options {
       for my $opt (keys %options) {
          if ($opt eq 'exports') {
 
-            Carp::croak $too_complicated if ref $options{exports} ne 'ARRAY';
+            _croak $too_complicated if ref $options{exports} ne 'ARRAY';
             @exports = @{$options{exports}};
-            Carp::croak $too_complicated if grep { length ref $_ } @exports;
+            _croak $too_complicated if grep { length ref $_ } @exports;
 
          } elsif ($opt eq 'groups') {
             %tags = %{$options{groups}};
             for my $tagset (values %tags) {
-               Carp::croak $too_complicated if grep {
+               _croak $too_complicated if grep {
                   length ref $_
                      or
                   $_ =~ / \A - (?! all \b ) /x
@@ -79,14 +82,14 @@ sub sub_export_options {
             }
             @defaults = @{$tags{default} || [] };
          } else {
-            Carp::croak $too_complicated;
+            _croak $too_complicated;
          }
       }
       @{$_} = map { / \A  [:-] all \z /x ? @exports : $_ } @{$_} for \@defaults, values %tags;
       $tags{all} ||= [ @exports ];
       my %exports = map { $_ => 1 } @exports;
       my @errors = grep { not $exports{$_} } @defaults;
-      Carp::croak join(', ', @errors) . " is not exported by the $inner_target module\n" if @errors;
+      _croak join(', ', @errors) . " is not exported by the $inner_target module\n" if @errors;
    }
 
    return {
