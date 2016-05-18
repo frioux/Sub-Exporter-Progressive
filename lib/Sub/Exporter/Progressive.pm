@@ -23,7 +23,11 @@ sub import {
       use strict;
       my ($self, @args) = @_;
 
-      if (List::Util::first { (length ref $_) || !m/ \A [:-]? \w+ \z /xm } @args) {
+      if ( List::Util::first {
+         length ref $_
+            or
+         $_ !~ / \A [:-]? \w+ \z /xm
+      } @args ) {
          Carp::croak 'your usage of Sub::Exporter::Progressive requires Sub::Exporter to be installed'
             unless eval { require Sub::Exporter };
          $full_exporter ||= Sub::Exporter::build_exporter($export_data->{original});
@@ -68,7 +72,11 @@ sub sub_export_options {
          } elsif ($opt eq 'groups') {
             %tags = %{$options{groups}};
             for my $tagset (values %tags) {
-               Carp::croak $too_complicated if List::Util::first { / \A - (?! all \b ) /x || length ref $_ } @{$tagset};
+               Carp::croak $too_complicated if List::Util::first {
+                  length ref $_
+                     or
+                  $_ =~ / \A - (?! all \b ) /x
+               } @{$tagset};
             }
             @defaults = @{$tags{default} || [] };
          } else {
