@@ -3,7 +3,6 @@ use strict;
 use warnings;
 
 use Test::More;
-use List::Util 'first';
 use lib 't/lib';
 use A::JunkAll;
 

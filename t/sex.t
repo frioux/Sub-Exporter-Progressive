@@ -8,7 +8,6 @@ BEGIN {
         unless eval { require Sub::Exporter };
 }
 
-use List::Util 'first';
 use lib 't/lib';
 use A::Junk 'junk1' => { -as => 'junk' };
 

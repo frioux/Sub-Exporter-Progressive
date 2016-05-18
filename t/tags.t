@@ -2,7 +2,6 @@ use strict;
 use warnings;
 
 use Test::More;
-use List::Util 'first';
 use Carp;
 use lib 't/lib';
 use A::Junk ':other';
