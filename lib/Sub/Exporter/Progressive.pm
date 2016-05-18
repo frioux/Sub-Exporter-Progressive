@@ -54,7 +54,7 @@ sub sub_export_options {
    my @defaults;
    my %tags;
 
-   if ($setup eq '-setup') {
+   if ( ($setup||'') eq '-setup') {
       my %options = %$options;
 
       OPTIONS:
