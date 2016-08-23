@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Many small performance improvements (Peter Rabbitson)
 
 0.001011 - 2013-10-28
   - Fix in global destruction (Graham Knop)
