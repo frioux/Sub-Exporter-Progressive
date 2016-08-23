@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.001012  2016-08-23 11:18:21-07:00 America/Los_Angeles
   - Many small performance improvements (Peter Rabbitson)
 
 0.001011 - 2013-10-28
