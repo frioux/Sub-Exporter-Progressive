@@ -3,7 +3,7 @@ package Sub::Exporter::Progressive;
 use strict;
 use warnings;
 
-our $VERSION = '0.001011';
+# ABSTRACT: Only use Sub::Exporter if you need it
 
 use Carp ();
 use List::Util ();
@@ -94,10 +94,6 @@ sub sub_export_options {
 
 =encoding utf8
 
-=head1 NAME
-
-Sub::Exporter::Progressive - Only use Sub::Exporter if you need it
-
 =head1 SYNOPSIS
 
  package Syntax::Keyword::Gather;
@@ -133,10 +129,6 @@ C<%EXPORT_TAGS> package variables for C<Exporter> to work.  Additionally, if
 your package uses advanced C<Sub::Exporter> features like currying, this module
 will only ever use C<Sub::Exporter>, so you might as well use it directly.
 
-=head1 AUTHOR
-
-frew - Arthur Axel Schmidt (cpan:FREW) <frioux+cpan@gmail.com>
-
 =head1 CONTRIBUTORS
 
 ilmari - Dagfinn Ilmari Mannsåker (cpan:ILMARI) <ilmari@ilmari.org>
@@ -144,15 +136,5 @@ ilmari - Dagfinn Ilmari Mannsåker (cpan:ILMARI) <ilmari@ilmari.org>
 mst - Matt S. Trout (cpan:MSTROUT) <mst@shadowcat.co.uk>
 
 leont - Leon Timmermans (cpan:LEONT) <leont@cpan.org>
-
-=head1 COPYRIGHT
-
-Copyright (c) 2012 the Sub::Exporter::Progressive L</AUTHOR> and
-L</CONTRIBUTORS> as listed above.
-
-=head1 LICENSE
-
-This library is free software and may be distributed under the same terms
-as perl itself.
 
 =cut
