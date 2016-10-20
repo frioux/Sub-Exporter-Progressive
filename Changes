@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Avoid possible warnings about special variables only being used once
+    (Graham Knop)
 
 0.001012  2016-08-23 11:18:21-07:00 America/Los_Angeles
   - Many small performance improvements (Peter Rabbitson)
