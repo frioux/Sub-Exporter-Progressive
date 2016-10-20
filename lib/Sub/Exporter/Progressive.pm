@@ -18,6 +18,7 @@ sub import {
 
    my $full_exporter;
    no strict 'refs';
+   no warnings 'once';
    @{"${inner_target}::EXPORT_OK"} = @{$export_data->{exports}};
    @{"${inner_target}::EXPORT"} = @{$export_data->{defaults}};
    %{"${inner_target}::EXPORT_TAGS"} = %{$export_data->{tags}};
